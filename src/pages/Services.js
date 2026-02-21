@@ -1,7 +1,5 @@
-import { useNavigate } from "react-router-dom";
 
 function Services() {
-  const navigate = useNavigate();
 const services = [
   { id: 1, name: "Home Cleaning", price: "₹999", icon: "🧹" },
   { id: 2, name: "Deep Cleaning", price: "₹1499", icon: "✨" },
