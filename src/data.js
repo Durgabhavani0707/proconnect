@@ -1,0 +1,22 @@
+export const services = [
+  { id:1, name:"Home Cleaning", img:"https://images.unsplash.com/photo-1581578731548-c64695cc6952" },
+  { id:2, name:"Electrician", img:"https://images.unsplash.com/photo-1581092583537-20d51b4b4f1b" },
+  { id:3, name:"Plumbing", img:"https://images.unsplash.com/photo-1581090700227-4c4d4a9c91d3" },
+  { id:4, name:"IT Support", img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c" },
+  { id:5, name:"Appliance Repair", img:"https://images.unsplash.com/photo-1581092334499-7c5a6f3bafad" },
+  { id:6, name:"Painting", img:"https://images.unsplash.com/photo-1581092919530-8a69f9d9e8f6" },
+  { id:7, name:"Carpentry", img:"https://images.unsplash.com/photo-1581092918069-4d07a1b5a3f2" },
+  { id:8, name:"AC Repair", img:"https://images.unsplash.com/photo-1581091012184-5c1d8d0b3d7a" },
+  { id:9, name:"Gardening", img:"https://images.unsplash.com/photo-1581090700339-7b9d6e5f6d5c" },
+  { id:10, name:"Pest Control", img:"https://images.unsplash.com/photo-1581091011880-2a7e8f7e9c9d" },
+  { id:11, name:"Laptop Repair", img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8" },
+  { id:12, name:"Mobile Repair", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" },
+  { id:13, name:"CCTV Installation", img:"https://images.unsplash.com/photo-1581093450021-4a7360e9a4d0" },
+  { id:14, name:"Interior Design", img:"https://images.unsplash.com/photo-1507089947368-19c1da9775ae" },
+  { id:15, name:"Roof Repair", img:"https://images.unsplash.com/photo-1598300051001-9b7f3c8e2d6e" },
+  { id:16, name:"Water Purifier Service", img:"https://images.unsplash.com/photo-1581091870627-3d0a9d3e2f6b" },
+  { id:17, name:"Car Wash", img:"https://images.unsplash.com/photo-1517520287167-4bbf64a00d66" },
+  { id:18, name:"Laundry Service", img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" },
+  { id:19, name:"Security Service", img:"https://images.unsplash.com/photo-1508385082359-f38ae991e8f1" },
+  { id:20, name:"Event Setup", img:"https://images.unsplash.com/photo-1511578314322-379afb476865" }
+];
