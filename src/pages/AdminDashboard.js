@@ -15,6 +15,22 @@ function AdminDashboard() {
 
   const [filter, setFilter] = useState("All");
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [search, setSearch] = useState("");
+
+  // Booking Analytics
+  const totalApproved = bookings.filter(
+    (b) => b.status === "Approved"
+  ).length;
+
+  const totalRejected = bookings.filter(
+    (b) => b.status === "Rejected"
+  ).length;
+
+  const totalPending = bookings.filter(
+    (b) => !b.status || b.status === "Pending"
+  ).length;
+
+  const approvedRevenue = totalApproved * 2000;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -51,7 +67,6 @@ function AdminDashboard() {
 
       {/* HEADER */}
       <div className="admin-header">
-
         <div>
           <h2>ProConnect 👑</h2>
           <p className="admin-subtitle">Modern Admin Dashboard</p>
@@ -59,7 +74,6 @@ function AdminDashboard() {
 
         <div className="admin-right">
           <div className="admin-profile">
-           
             <span>Admin</span>
           </div>
 
@@ -67,7 +81,6 @@ function AdminDashboard() {
             Logout
           </button>
         </div>
-
       </div>
 
       {/* NAVIGATION */}
@@ -97,44 +110,78 @@ function AdminDashboard() {
       {/* CONTENT */}
       <div className="admin-content">
 
+        {/* DASHBOARD TAB */}
         {activeTab === "dashboard" && (
-          <div className="admin-stats">
+          <>
+            <div className="admin-stats">
 
-            <div className="stat-box fade">
-              <h3>👥 Total Users</h3>
-              <p>{users.length}</p>
+              <div className="stat-box fade">
+                <h3>👥 Total Users</h3>
+                <p>{users.length}</p>
+              </div>
+
+              <div className="stat-box fade">
+                <h3>📅 Total Bookings</h3>
+                <p>{bookings.length}</p>
+              </div>
+
+              <div className="stat-box revenue fade">
+                <h3>💰 Approved Revenue</h3>
+                <p>₹ {approvedRevenue}</p>
+              </div>
+
             </div>
 
-            <div className="stat-box fade">
-              <h3>📅 Total Bookings</h3>
-              <p>{bookings.length}</p>
-            </div>
+            {/* Status Overview */}
+            <div className="admin-status-overview">
+              <div className="mini-stat pending">
+                Pending: {totalPending}
+              </div>
 
-            <div className="stat-box revenue fade">
-              <h3>💰 Revenue</h3>
-              <p>₹ {bookings.length * 2000}</p>
-            </div>
+              <div className="mini-stat approved">
+                Approved: {totalApproved}
+              </div>
 
-          </div>
+              <div className="mini-stat rejected">
+                Rejected: {totalRejected}
+              </div>
+            </div>
+          </>
         )}
 
+        {/* USERS TAB */}
         {activeTab === "users" && (
           <div className="admin-section slide">
             <h2>Users</h2>
-            {users.map((u, index) => (
-              <div key={index} className="admin-row">
-                <span>{u.email}</span>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDeleteUser(u.email)}
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
+
+            <input
+              type="text"
+              placeholder="Search by email..."
+              className="search-input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+
+            {users
+              .filter((u) =>
+                u.email.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((u, index) => (
+                <div key={index} className="admin-row">
+                  <span>{u.email}</span>
+
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteUser(u.email)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
           </div>
         )}
 
+        {/* BOOKINGS TAB */}
         {activeTab === "bookings" && (
           <div className="admin-section slide">
             <h2>Bookings</h2>
@@ -153,6 +200,7 @@ function AdminDashboard() {
                   <span>{b.service}</span>
 
                   <div className="action-buttons">
+
                     <button
                       className="approve-btn"
                       onClick={() => handleApprove(index)}
@@ -167,9 +215,14 @@ function AdminDashboard() {
                       Reject
                     </button>
 
-                    <span className={`status ${b.status?.toLowerCase()}`}>
+                    <span
+                      className={`status ${
+                        b.status ? b.status.toLowerCase() : "pending"
+                      }`}
+                    >
                       {b.status || "Pending"}
                     </span>
+
                   </div>
                 </div>
               ))

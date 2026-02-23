@@ -3780,3 +3780,73 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+.admin-status-overview {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mini-stat {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mini-stat.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.mini-stat.approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.mini-stat.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  width: 250px;
+}
+.admin-status-overview {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mini-stat {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mini-stat.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.mini-stat.approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.mini-stat.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  width: 250px;
+}
