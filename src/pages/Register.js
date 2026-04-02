@@ -1,86 +1,60 @@
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles.css";
+import "../styles/Auth.css";
 
-function Register() {
+function Login() {
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+  const navigate=useNavigate();
 
-  const navigate = useNavigate();
+  const handleLogin = async () => {
+    try {
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+      const res = await axios.post("http://localhost:8080/api/login", {
+        email: email,
+        password: password
+      });
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+      if(res.data){
+        localStorage.setItem("user", JSON.stringify(res.data));
+        navigate("/dashboard");
+      } else {
+        alert("Invalid credentials ❌");
+      }
 
-    const existingUser = users.find((u) => u.email === email);
-    if (existingUser) {
-      alert("User already exists");
-      return;
+    } catch (err) {
+      console.log(err);
+      alert("Server error ❌");
     }
-
-    const newUser = {
-      name,
-      email,
-      password,
-      role
-    };
-
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Registered Successfully");
-    navigate("/login");
   };
 
-  return (
-    <div className="auth-container-modern">
-      <div className="auth-box-modern">
+  return(
+    <div className="auth-container">
+      <div className="auth-card">
 
-        <h2>Create Account</h2>
+        <h2 className="title">Login</h2>
 
-        <form onSubmit={handleRegister}>
-
-          <label>Full Name</label>
-          <input
-            type="text"
-            required
-            onChange={(e) => setName(e.target.value)}
-          />
-
+        <div className="form-group">
           <label>Email</label>
-          <input
-            type="email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <input onChange={(e)=>setEmail(e.target.value)} />
+        </div>
 
+        <div className="form-group">
           <label>Password</label>
-          <input
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input type="password" onChange={(e)=>setPassword(e.target.value)} />
+        </div>
 
-          <label>Register As</label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
+        <div className="links">
+          <span onClick={()=>navigate("/register")}>Register</span>
+        </div>
 
-          <button type="submit">Register</button>
-
-        </form>
+        <button className="btn" onClick={handleLogin}>Login</button>
 
       </div>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Login;

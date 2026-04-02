@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+/* CARD */
+.auth-box {
+  width: 320px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* FORM CONTAINER = COLUMN */
+.form-container {
+  display: flex;
+  flex-direction: column;   /* 🔥 THIS LINE FIX EVERYTHING */
+  gap: 12px;                /* spacing between inputs */
+}
+
+/* INPUT */
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* BUTTON */
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #3949ab;
+  color: white;
+  font-weight: bold;
+}

@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar() {
   return (
     <div className="navbar">
-      <h2>ProConnect 🚀</h2>
+      <h2>ProConnect</h2>
 
-      <div className="nav-links">
+      <div>
         <Link to="/">Home</Link>
         <Link to="/services">Services</Link>
+        <Link to="/bookings">Bookings</Link>
         <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
       </div>
     </div>
   );

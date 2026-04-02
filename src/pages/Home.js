@@ -1,84 +1,81 @@
 import { useNavigate } from "react-router-dom";
-import "../styles.css";
-
+import "../styles/Home.css";
 function Home() {
   const navigate = useNavigate();
 
   return (
     <div className="home">
 
-      {/* HERO */}
-      <section className="hero-modern">
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <h2 className="logo">ProConnect</h2>
+        <div>
+          <button onClick={() => navigate("/login")} className="nav-btn">
+            Login
+          </button>
+        </div>
+      </nav>
 
+      {/* HERO SECTION */}
+      <section className="hero">
         <div className="hero-text">
-          <h1>
-            Book Trusted <span>Home Services</span> Instantly
-          </h1>
-
+          <h1>Trusted Home Services</h1>
           <p>
-            Professional cleaning, plumbing, electrical and repairs.
-            Safe. Fast. Reliable.
+            Book electricians, plumbers, cleaners & more — instantly at your home.
           </p>
 
           <div className="hero-buttons">
-            <button onClick={() => navigate("/services")}>
+            <button onClick={() => navigate("/services")} className="primary">
               Explore Services
             </button>
-
-            <button
-              className="outline-btn"
-              onClick={() => navigate("/register")}
-            >
+            <button onClick={() => navigate("/login")} className="secondary">
               Get Started
             </button>
           </div>
         </div>
 
         <div className="hero-image">
-         <img
-  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952"
-  alt="Happy Home Service Customer"
-/>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png"
+            alt="services"
+          />
         </div>
-
       </section>
 
-      {/* FLOATING CARD SECTION */}
-      <section className="floating-section">
+      {/* FEATURES */}
+      <section className="features">
+        <h2>Our Services</h2>
 
-        <div className="floating-card">
-          <h3>500+</h3>
-          <p>Verified Experts</p>
+        <div className="cards">
+          <div className="card">
+            <span>🛠️</span>
+            <h3>Electrician</h3>
+            <p>Expert electrical repairs & installations</p>
+          </div>
+
+          <div className="card">
+            <span>🚿</span>
+            <h3>Plumber</h3>
+            <p>Fix leaks & plumbing issues instantly</p>
+          </div>
+
+          <div className="card">
+            <span>🧹</span>
+            <h3>Cleaning</h3>
+            <p>Professional home cleaning services</p>
+          </div>
+
+          <div className="card">
+            <span>❄️</span>
+            <h3>AC Repair</h3>
+            <p>AC servicing & cooling solutions</p>
+          </div>
         </div>
-
-        <div className="floating-card">
-          <h3>2000+</h3>
-          <p>Happy Customers</p>
-        </div>
-
-        <div className="floating-card">
-          <h3>24/7</h3>
-          <p>Support</p>
-        </div>
-
-        <div className="floating-card">
-          <h3>100%</h3>
-          <p>Secure Payments</p>
-        </div>
-
-      </section>
-
-      {/* CTA */}
-      <section className="cta-modern">
-        <h2>Ready to Fix Your Home Problems?</h2>
-        <button onClick={() => navigate("/services")}>
-          Book Now →
-        </button>
       </section>
 
       {/* FOOTER */}
-      <footer className="footer-modern">
-        © 2026 ProConnect | Made with ❤️
+      <footer className="footer">
+        <p>© 2026 ProConnect. All rights reserved.</p>
       </footer>
 
     </div>

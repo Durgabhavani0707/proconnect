@@ -1,113 +1,72 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles.css";
+import "../styles/Auth.css";
 
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
 
-  // Load remembered email
-  useEffect(() => {
-    const savedEmail = localStorage.getItem("rememberEmail");
-    if (savedEmail) {
-      setEmail(savedEmail);
-      setRemember(true);
-    }
-  }, []);
+const handleLogin = async () => {
+  try {
+    const res = await axios.post("http://localhost:8080/api/login", {
+      email,
+      password,
+    });
 
-  // 🔥 LOGIN FUNCTION
-  const handleLogin = (e) => {
-    e.preventDefault();
+    console.log("SUCCESS:", res.data);
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    localStorage.setItem("user", JSON.stringify(res.data));
+    alert("Login Success ✅");
+    navigate("/dashboard");
 
-    const foundUser = users.find(
-      (u) => u.email === email && u.password === password
-    );
+  } catch (err) {
+    console.log("ERROR FULL:", err);
 
-    if (foundUser) {
-
-      // Remember email
-      if (remember) {
-        localStorage.setItem("rememberEmail", email);
-      } else {
-        localStorage.removeItem("rememberEmail");
-      }
-
-      // Save current logged in user
-      localStorage.setItem("user", JSON.stringify(foundUser));
-
-      // 🔥 ROLE BASED REDIRECT
-      if (foundUser.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
-
+    if (err.response) {
+      alert("Error: " + err.response.status);
+    } else if (err.request) {
+      alert("No response from server ❌");
     } else {
-      alert("Invalid email or password!");
+      alert("Error: " + err.message);
     }
-  };
-
+  }
+};
   return (
-    <div className="auth-container-modern">
-      <div className="auth-box-modern">
+    <div className="auth-container">
+      <div className="auth-card">
 
-        <h2>Login to ProConnect</h2>
+        <h2 className="title">Login</h2>
 
-        <form onSubmit={handleLogin}>
-
+        <div className="form-group">
           <label>Email</label>
           <input
             type="email"
-            value={email}
-            required
+            placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
           />
+        </div>
 
+        <div className="form-group">
           <label>Password</label>
-          <div className="password-wrapper">
-            <input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "🙈" : "👁"}
-            </span>
-          </div>
+          <input
+            type="password"
+            placeholder="Enter password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-          <div className="remember-row">
-            <input
-              type="checkbox"
-              checked={remember}
-              onChange={() => setRemember(!remember)}
-            />
-            <span>Remember Me</span>
-          </div>
+        <div className="links">
+          <span onClick={() => navigate("/register")}>
+            Don't have an account? Register
+          </span>
+        </div>
 
-          <button type="submit">Login</button>
+        <button className="btn" onClick={handleLogin}>
+          Login
+        </button>
 
-          <p style={{ marginTop: "15px" }}>
-            Don’t have an account?{" "}
-            <span
-              style={{ color: "blue", cursor: "pointer" }}
-              onClick={() => navigate("/register")}
-            >
-              Register
-            </span>
-          </p>
-
-        </form>
       </div>
     </div>
   );
