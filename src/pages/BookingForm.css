@@ -1,55 +1,93 @@
 .booking-wrapper {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 90vh;
-  background: linear-gradient(to right, #eef2f3, #dfe9f3);
+  align-items: center;
+  background: linear-gradient(135deg, #1e3a8a, #4f46e5);
 }
 
-.main-heading {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #222;
-}
-
+/* Card */
 .booking-card {
   background: white;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  width: 350px;
+  padding: 35px;
+  width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  animation: slideUp 0.6s ease;
 }
 
-.booking-form {
+.booking-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+/* Inputs */
+.input-group {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  margin-bottom: 15px;
 }
 
-.booking-form input {
-  padding: 12px;
-  border-radius: 8px;
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.input-group input,
+.input-group textarea {
+  padding: 10px;
+  border-radius: 10px;
   border: 1px solid #ccc;
+  outline: none;
   transition: 0.3s;
 }
 
-.booking-form input:focus {
-  border-color: #ff6600;
-  box-shadow: 0 0 5px rgba(255, 102, 0, 0.3);
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 8px rgba(79,70,229,0.4);
 }
 
-.booking-form button {
+/* Row for date + time */
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Button */
+button {
+  width: 100%;
   padding: 12px;
-  background: linear-gradient(to right, #ff6600, #ff8533);
-  color: white;
+  background: #4f46e5;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 12px;
+  color: white;
   font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.booking-form button:hover {
-  background: linear-gradient(to right, #e65c00, #ff751a);
+button:hover {
+  background: #1e3a8a;
+  transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.readonly-input {
+  background: #f3f4f6;
+  color: #333;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }

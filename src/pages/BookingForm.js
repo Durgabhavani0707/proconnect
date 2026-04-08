@@ -1,46 +1,76 @@
-import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import "./BookingForm.css";
 
-function BookingForm(){
+function BookingForm() {
+  const location = useLocation();
+  const selectedService = location.state?.service || "";
 
-  const [service,setService]=useState("");
-  const [date,setDate]=useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    service: selectedService,
+    date: "",
+    time: "",
+    address: ""
+  });
 
-  const handleBooking=async()=>{
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-    const user=JSON.parse(localStorage.getItem("user"));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Booking Confirmed 🎉");
+  };
 
-    if(!user){
-      alert("Login first ❌");
-      return;
-    }
+  return (
+    <div className="booking-wrapper">
+      <div className="booking-card">
+        
+        <h2>Book Your Service</h2>
 
-    try{
-      await axios.post("http://localhost:8080/api/bookings/add",{
-        service:service,
-        date:date,
-        userEmail:user.email
-      });
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Name</label>
+            <input type="text" name="name" onChange={handleChange} required />
+          </div>
 
-      alert("Booking Successful ✅");
+          <div className="input-group">
+            <label>Service</label>
+<input
+  type="text"
+  name="service"
+  value={formData.service || ""}
+  readOnly
+  className="readonly-input"
+/>          </div>
 
-    }catch(err){
-      alert("Error saving booking ❌");
-    }
-  }
+          <div className="row">
+            <div className="input-group">
+              <label>Date</label>
+              <input type="date" name="date" onChange={handleChange} required />
+            </div>
 
-  return(
-    <div style={{padding:"20px"}}>
+            <div className="input-group">
+              <label>Time</label>
+              <input type="time" name="time" onChange={handleChange} required />
+            </div>
+          </div>
 
-      <h2>Book Service</h2>
+          <div className="input-group">
+            <label>Address</label>
+            <textarea name="address" onChange={handleChange} required />
+          </div>
 
-      <input placeholder="Service" onChange={(e)=>setService(e.target.value)} />
-      <input type="date" onChange={(e)=>setDate(e.target.value)} />
+          <button type="submit">Confirm Booking</button>
+        </form>
 
-      <button onClick={handleBooking}>Book</button>
-
+      </div>
     </div>
-  )
+  );
 }
 
 export default BookingForm;
