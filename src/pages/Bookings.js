@@ -1,45 +1,43 @@
-import { useEffect,useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import "./Bookings.css";
 
-function Bookings(){
+function Bookings() {
+  const [bookings, setBookings] = useState([]);
 
-  const [data,setData]=useState([]);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("bookings")) || [];
 
-  useEffect(()=>{
+    // ❌ remove empty/invalid entries
+    const filtered = data.filter(
+      (b) => b.service && b.date && b.time
+    );
 
-    const user=JSON.parse(localStorage.getItem("user"));
+    setBookings(filtered);
+  }, []);
 
-    if(user){
-      axios.get(`http://localhost:8080/api/bookings/${user.email}`)
-      .then(res=>setData(res.data))
-      .catch(err=>console.log(err));
-    }
-
-  },[]);
-
-  return(
-    <div style={{padding:"20px"}}>
-
+  return (
+    <div className="bookings-container">
       <h2>My Bookings</h2>
 
-      {data.length === 0 ? (
+      {bookings.length === 0 ? (
         <p>No bookings yet</p>
       ) : (
-        data.map((b)=>(
-          <div key={b.id} style={{
-            border:"1px solid #ccc",
-            padding:"10px",
-            margin:"10px",
-            borderRadius:"8px"
-          }}>
-            <h3>{b.service}</h3>
-            <p>{b.date}</p>
+        bookings.map((b, index) => (
+          <div className="booking-card" key={index}>
+            <div>
+              <h3>{b.service}</h3>
+              <p>{b.date} | {b.time}</p>
+              <small>{b.address}</small>
+            </div>
+
+            <span className={`status ${b.status?.toLowerCase() || "pending"}`}>
+              {b.status || "Pending"}
+            </span>
           </div>
         ))
       )}
-
     </div>
-  )
+  );
 }
 
 export default Bookings;

@@ -3,91 +3,41 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1e3a8a, #4f46e5);
+  background: linear-gradient(135deg, #5f2c82, #49a09d);
 }
 
-/* Card */
-.booking-card {
+.booking-box {
   background: white;
-  padding: 35px;
-  width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  animation: slideUp 0.6s ease;
-}
-
-.booking-card h2 {
+  padding: 30px;
+  width: 350px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   text-align: center;
-  margin-bottom: 20px;
-  color: #1e3a8a;
 }
 
-/* Inputs */
-.input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
-
-.input-group label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.input-group input,
-.input-group textarea {
+.booking-box input,
+.booking-box textarea {
+  width: 100%;
   padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: 0.3s;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
-.input-group input:focus,
-.input-group textarea:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 8px rgba(79,70,229,0.4);
-}
-
-/* Row for date + time */
 .row {
   display: flex;
   gap: 10px;
 }
 
-/* Button */
+.readonly {
+  background: #eee;
+}
+
 button {
   width: 100%;
-  padding: 12px;
-  background: #4f46e5;
-  border: none;
-  border-radius: 12px;
+  padding: 10px;
+  background: linear-gradient(135deg, #6c63ff, #00c6ff);
   color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #1e3a8a;
-  transform: scale(1.05);
-}
-
-/* Animation */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.readonly-input {
-  background: #f3f4f6;
-  color: #333;
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  border: none;
+  border-radius: 8px;
 }

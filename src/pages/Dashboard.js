@@ -1,29 +1,64 @@
 import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
 
-function Dashboard(){
+function Dashboard() {
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
-  const user=JSON.parse(localStorage.getItem("user"));
+  return (
+    <div className="dashboard">
 
-  if(!user){
-    window.location.href="/login";
-  }
+      <div className="container">
 
-  return(
-    <div style={{padding:"20px"}}>
+        {/* LEFT */}
+        <div className="left">
 
-      <h2>Welcome {user?.name} 👋</h2>
+          <div className="header">
+            <h1>👋 Welcome to ProConnect</h1>
+            <p>Manage your services and bookings easily</p>
+          </div>
 
-      <button onClick={()=>navigate("/booking")}>
-        Book Service
-      </button>
+          <div className="stats">
+    <div className="card">
+  <h2>12</h2>
+  <p>Services</p>
+</div>
+            <div className="card">
+              <h2>5</h2>
+              <p>Bookings</p>
+            </div>
 
-      <button onClick={()=>navigate("/bookings")} style={{marginLeft:"10px"}}>
-        My Bookings
-      </button>
+            <div className="card">
+              <h2>3</h2>
+              <p>Completed</p>
+            </div>
+          </div>
 
+          <div className="big-card">
+            <p>📊 Analytics / Overview</p>
+          </div>
+
+        </div>
+
+        {/* RIGHT */}
+        <div className="right">
+
+          <div className="action" onClick={() => navigate("/services")}>
+            🛠 Book Service
+          </div>
+
+          <div className="action" onClick={() => navigate("/bookings")}>
+            📋 My Bookings
+          </div>
+
+          <div className="action" onClick={() => navigate("/profile")}>
+            👤 Profile
+          </div>
+
+        </div>
+
+      </div>
     </div>
-  )
+  );
 }
 
 export default Dashboard;

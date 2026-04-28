@@ -1,18 +1,48 @@
-.booking-list-container {
-  padding: 30px;
-  text-align: center;
-}
-
-.booking-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+.bookings-container {
+  padding: 40px;
+  background: #f5f7fb;
+  min-height: 100vh;
 }
 
 .booking-card {
   background: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.booking-card:hover {
+  transform: scale(1.02);
+}
+
+/* 🔥 Status styles */
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+}
+
+/* colors */
+.status.pending {
+  background: orange;
+}
+
+.status.confirmed {
+  background: green;
+}
+
+.status.rejected {
+  background: red;
+}
+
+small {
+  color: gray;
 }

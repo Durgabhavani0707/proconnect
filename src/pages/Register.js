@@ -1,60 +1,86 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Auth.css";
+import "./Register.css";
 
-function Login() {
+function Register() {
+  const navigate = useNavigate();
 
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
-  const navigate=useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user"
+  });
 
-  const handleLogin = async () => {
-    try {
-
-      const res = await axios.post("http://localhost:8080/api/login", {
-        email: email,
-        password: password
-      });
-
-      if(res.data){
-        localStorage.setItem("user", JSON.stringify(res.data));
-        navigate("/dashboard");
-      } else {
-        alert("Invalid credentials ❌");
-      }
-
-    } catch (err) {
-      console.log(err);
-      alert("Server error ❌");
-    }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  return(
-    <div className="auth-container">
-      <div className="auth-card">
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        <h2 className="title">Login</h2>
+    // store user in localStorage (temporary)
+    localStorage.setItem("user", JSON.stringify(formData));
+    localStorage.setItem("role", formData.role);
 
-        <div className="form-group">
-          <label>Email</label>
-          <input onChange={(e)=>setEmail(e.target.value)} />
-        </div>
+    alert("✅ Registered Successfully!");
 
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" onChange={(e)=>setPassword(e.target.value)} />
-        </div>
+    navigate("/login");
+  };
 
-        <div className="links">
-          <span onClick={()=>navigate("/register")}>Register</span>
-        </div>
+  return (
+    <div className="register-wrapper">
+      <div className="register-card">
 
-        <button className="btn" onClick={handleLogin}>Login</button>
+        <h2>📝 Create Account</h2>
+
+        <form onSubmit={handleSubmit}>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter your name"
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            onChange={handleChange}
+            required
+          />
+
+          {/* Role selection */}
+          <select name="role" onChange={handleChange}>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <button type="submit">Register 🚀</button>
+
+        </form>
+
+        <p>
+          Already have an account?{" "}
+          <span onClick={() => navigate("/login")}>Login</span>
+        </p>
 
       </div>
     </div>
-  )
+  );
 }
 
-export default Login;
+export default Register;

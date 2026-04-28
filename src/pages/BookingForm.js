@@ -1,10 +1,12 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./BookingForm.css";
 
 function BookingForm() {
   const location = useLocation();
-  const selectedService = location.state?.service || "";
+  const navigate = useNavigate();
+
+  const selectedService = location.state?.service || "Electrical";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -15,59 +17,71 @@ function BookingForm() {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Booking Confirmed 🎉");
+
+    // ❌ prevent empty data
+    if (!formData.name || !formData.date || !formData.time || !formData.address) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const oldBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    const newBooking = {
+      ...formData,
+      status: "Pending" // 🔥 default status
+    };
+
+    const updated = [...oldBookings, newBooking];
+
+    localStorage.setItem("bookings", JSON.stringify(updated));
+
+    alert("🎉 Booking Confirmed!");
+    navigate("/bookings");
   };
 
   return (
     <div className="booking-wrapper">
-      <div className="booking-card">
-        
+      <div className="booking-box">
+
         <h2>Book Your Service</h2>
+        <p className="subtitle">Fill details to confirm</p>
 
         <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>Name</label>
-            <input type="text" name="name" onChange={handleChange} required />
-          </div>
 
-          <div className="input-group">
-            <label>Service</label>
-<input
-  type="text"
-  name="service"
-  value={formData.service || ""}
-  readOnly
-  className="readonly-input"
-/>          </div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="text"
+            value={formData.service}
+            readOnly
+            className="readonly"
+          />
 
           <div className="row">
-            <div className="input-group">
-              <label>Date</label>
-              <input type="date" name="date" onChange={handleChange} required />
-            </div>
-
-            <div className="input-group">
-              <label>Time</label>
-              <input type="time" name="time" onChange={handleChange} required />
-            </div>
+            <input type="date" name="date" onChange={handleChange} required />
+            <input type="time" name="time" onChange={handleChange} required />
           </div>
 
-          <div className="input-group">
-            <label>Address</label>
-            <textarea name="address" onChange={handleChange} required />
-          </div>
+          <textarea
+            name="address"
+            placeholder="Enter address"
+            onChange={handleChange}
+            required
+          />
 
-          <button type="submit">Confirm Booking</button>
+          <button type="submit">Confirm Booking 🚀</button>
         </form>
-
       </div>
     </div>
   );

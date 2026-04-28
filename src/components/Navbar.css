@@ -1,17 +1,44 @@
+/* Navbar container */
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 15px 30px;
-  background: #3949ab;
-  color: white;
+  align-items: center;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
 }
 
-.navbar a {
-  margin: 0 10px;
+/* Logo */
+.logo {
   color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Links */
+.nav-links a {
+  color: white;
+  margin-left: 25px;
   text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
 }
 
-.navbar a:hover {
-  text-decoration: underline;
+.nav-links a:hover {
+  color: #ffd700;
+}
+
+/* Login button */
+.login-btn {
+  background: #6c63ff;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.login-btn:hover {
+  background: #5848d6;
 }
